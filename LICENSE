@@ -1,0 +1,18 @@
+BEER-WARE LICENSE
+
+The following [lines 11-18] LICENSE applies only to the `gh-pages` branch of:
+    https://github.com/thee-engineer/coalition
+meaning that you ``can do whatever you want with`` the webpage of Coalition
+a.k.a. Coalition Landing Page.
+
+The LICENSE [4-Clause BSD] for the rest other parts of the Coalition
+project can be found on their respective branches.
+
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * <phk@FreeBSD.ORG> wrote this file.  As long as you retain this notice you
+ * can do whatever you want with this stuff. If we meet some day, and you think
+ * this stuff is worth it, you can buy me a beer in return.   Poul-Henning Kamp
+ * ----------------------------------------------------------------------------
+ */
