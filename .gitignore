@@ -1,0 +1,9 @@
+# Python
+build
+*.egg-info
+dist
+*.pyc
+
+# Mics
+*.log
+*.zip
