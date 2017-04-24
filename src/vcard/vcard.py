@@ -23,6 +23,12 @@ class VCardObject(object):
         """Return the __str__ string."""
         return self.__str__()
 
+    @staticmethod
+    def parse_from_file(vcard_file):
+        """Return a VCardObject from a VCardFile."""
+        for line in vcard_file:
+            print line
+
 
 class VCardFile(object):
     """Class for holding and handling a vcard [.vcf] file."""
@@ -75,3 +81,10 @@ class VCardFile(object):
                 raise Exception('Missing END:VCARD {}:{}'.format(index, begin))
 
         return vcard_list
+
+
+if __name__ == '__main__':
+    vcard_file = VCardFile('tests/sample.vcf')
+    vcard_list = vcard_file.split()
+
+    vcard_object = VCardObject.parse_from_file(vcard_list[0])
