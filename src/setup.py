@@ -17,7 +17,7 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, path.pardir, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
@@ -59,7 +59,7 @@ setup(
     author_email='alexandru.p.copil@gmail.com',
 
     # Choose your license
-    license='Apache License 2.0',
+    license='4-Clause BSD License',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -78,7 +78,7 @@ setup(
         'Topic :: Security',
 
         # Pick your license as you wish (should match "license" above)
-        'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: BSD License',
 
         # Language
         'Natural Language :: English',
