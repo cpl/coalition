@@ -1,7 +1,8 @@
 """Main class of the VCARD parser/reader/writer/etc..."""
 
 import os
-from defintions import NAME_COLONS as NAME
+from utility import Name, Address, PhoneNumber, EmailAddress
+from defintions import BEGIN_VCARD, END_VCARD
 
 
 class VCardObject(object):
@@ -9,10 +10,9 @@ class VCardObject(object):
 
     def __init__(self):
         """Construct an empty vcard object."""
-        self._firname = None
-        self._surname = None
-        self._telephone = None
-        self._email = None
+        self._name = Name()
+        self._address = Address
+        self._phonenumber = PhoneNumber
 
     def __str__(self):
         """Return the string containing all variables."""
@@ -33,24 +33,38 @@ class VCardFile(object):
             raise IOError('Missing file and/or no read permissions.')
 
         # Attempt to read file content
+        self._content = None
         try:
             with open(filepath, 'r') as file:
-                content = file.readlines()
+                self._content = file.readlines()
         except Exception as exception:
             raise exception
 
-        # Split each line into key/value pairs
-        for index, line in enumerate(content):
+    def parse(self):
+        """Parse the vCard File into vCard Python Objects."""
+        encounterBegin = False
+        for index, line in enumerate(self._content):
             line = line.rstrip()
-            if not line.startswith(' '):
-                line = line.split(':')
-                key, value = line[0], line[1]
-                if key == NAME:
-                    print value
+
+            # Check for valid vCard
+            if not encounterBegin:
+                # Check for BEGIN:VCARD, at the start
+                if line != BEGIN_VCARD:
+                    raise Exception('{} Missing {}'.format(index, BEGIN_VCARD))
+                else:
+                    encounterBegin = True
             else:
-                pass
+                # Check for END:VCARD, at the end
+                if line == END_VCARD:
+                    encounterBegin = False
+                    print
+                elif line == BEGIN_VCARD:
+                    raise Exception('{} Missing {}'.format(index, END_VCARD))
+                else:
+                    print line
 
 
 if __name__ == '__main__':
-    vcard_file = VCardFile('tests/apple.vcf')
-    vcard_obj = VCardObject()
+    vcard_file = VCardFile('tests/sample.vcf')
+    vcard_file.parse()
+

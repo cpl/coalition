@@ -1,5 +1,7 @@
 """A set of helper classes."""
 
+import re
+
 
 class Address(object):
     """A representation of a common address."""
@@ -74,6 +76,7 @@ class Name(object):
 class PhoneNumber(object):
     """A representation of a phone number."""
 
+    # TODO: Finish the two way phone number input.
     def __init__(self, prefix=None, country=None, provider=None, number=None):
         """Contruct a phone number."""
         if prefix is not None:
@@ -85,12 +88,33 @@ class PhoneNumber(object):
         self._number = number
 
 
-if __name__ == '__main__':
-    test_name = Name(given='Alexandru-Paul', family='Copil',
-                     nickname='Engineer', prefix='Mr.')
-    test_address = Address('112 Stockport Road', 'Manchester',
-                           'Greater Manchester', 'M13 9DZ', 'UK',
-                           category='Home')
+class EmailAddress(object):
+    """A email representation and validator."""
 
-    print test_name
-    print test_address
+    EMAIL_REGEX = re.compile(r'[^@]+@[^@]+\.[^@]+')
+
+    def __init__(self, email_address):
+        """Validate and construct an email."""
+        if self.EMAIL_REGEX.match(email_address):
+            email_address = email_address.split('@')
+
+            self._local = email_address[0]
+            self._domain = email_address[1]
+        else:
+            raise Exception('Invalid email, {}'.format(email_address))
+
+    def __str__(self):
+        """Return all the variables of the email address in a string."""
+        return 'EmailAddress({}@{})'.format(self._local, self._domain)
+
+    def __repr__(self):
+        """Use the same string from __str__."""
+        return self.__str__()
+
+
+class Day(object):
+    """A date parsing class."""
+
+    def __init__(self, date):
+        """Validate and store the date as UNIX epoch."""
+        pass
