@@ -1,4 +1,4 @@
-coalition | pypi | | travis |
+coalition |pypi| |travis|
 =============================
 .. |pypi| image:: https://badge.fury.io/py/coalition.svg
     :target: https://pypi.python.org/pypi/coalition
