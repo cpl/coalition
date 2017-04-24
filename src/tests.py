@@ -22,6 +22,30 @@ class TestVcardModule(unittest.TestCase):
         self.assertTrue(test_name._given, 'Given')
         self.assertTrue(test_name._family, 'Family')
 
+    def test_vcard_file(self):
+        """Test vcard.vcard module."""
+        vc = vcard.vcard.VCardFile('tests/sample.vcf')
+        self.assertEqual(len(vc.split()), 3)
+        vc = vcard.vcard.VCardFile('tests/single.vcf')
+        self.assertEqual(len(vc.split()), 1)
+
+    def test_vcard_file_invalid(self):
+        """Test vcard.vcard module, on invalid .vcf files."""
+        with self.assertRaises(Exception):
+            vc = vcard.vcard.VCardFile('tests/invalid_empty.vcf')
+        with self.assertRaises(Exception):
+            vc = vcard.vcard.VCardFile('tests/invalid_begin1.vcf')
+            vc.split()
+        with self.assertRaises(Exception):
+            vc = vcard.vcard.VCardFile('tests/invalid_begin2.vcf')
+            vc.split()
+        with self.assertRaises(Exception):
+            vc = vcard.vcard.VCardFile('tests/invalid_end1.vcf')
+            vc.split()
+        with self.assertRaises(Exception):
+            vc = vcard.vcard.VCardFile('tests/invalid_end2.vcf')
+            vc.split()
+
 
 if __name__ == '__main__':
     unittest.main()

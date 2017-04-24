@@ -13,6 +13,7 @@ class VCardObject(object):
         self._name = Name()
         self._address = Address
         self._phonenumber = PhoneNumber
+        self._email = EmailAddress
 
     def __str__(self):
         """Return the string containing all variables."""
@@ -40,31 +41,37 @@ class VCardFile(object):
         except Exception as exception:
             raise exception
 
-    def parse(self):
-        """Parse the vCard File into vCard Python Objects."""
-        encounterBegin = False
+        # Check for empty file
+        if os.stat(filepath).st_size == 0:
+            raise Exception('Empty file: {}'.format(filepath))
+
+        # Check for missing BEGIN and END, VCARD
+        if self._content[0].rstrip() != BEGIN_VCARD \
+           or self._content[-1].rstrip() != END_VCARD:
+            raise Exception('Invalid VCF file: {}'.format(filepath))
+
+    def split(self):
+        """Description."""
+        begin = None
+        vcard_list = []
+
+        # Process each line
         for index, line in enumerate(self._content):
             line = line.rstrip()
 
-            # Check for valid vCard
-            if not encounterBegin:
-                # Check for BEGIN:VCARD, at the start
-                if line != BEGIN_VCARD:
-                    raise Exception('{} Missing {}'.format(index, BEGIN_VCARD))
+            # Check for begin index
+            if begin is None:
+                # Assign a new begin index or raise an error
+                if line == BEGIN_VCARD:
+                    begin = index
                 else:
-                    encounterBegin = True
-            else:
-                # Check for END:VCARD, at the end
-                if line == END_VCARD:
-                    encounterBegin = False
-                    print
-                elif line == BEGIN_VCARD:
-                    raise Exception('{} Missing {}'.format(index, END_VCARD))
-                else:
-                    print line
+                    raise Exception('Missing BEGIN:VCARD {}'.format(index))
+            # Check for end of VCARD
+            elif line == END_VCARD:
+                vcard_list.append(self._content[begin:index])
+                begin = None
+            # Error if BEGIN was found after BEGIN and before END
+            elif line == BEGIN_VCARD:
+                raise Exception('Missing END:VCARD {}:{}'.format(index, begin))
 
-
-if __name__ == '__main__':
-    vcard_file = VCardFile('tests/sample.vcf')
-    vcard_file.parse()
-
+        return vcard_list
