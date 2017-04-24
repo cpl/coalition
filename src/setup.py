@@ -46,7 +46,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version=find_version(here, 'src', 'coalition.py'),
+    version=find_version(here, 'coalition.py'),
 
     description='A suite of office tools developed in Python.',
     long_description=long_description,
