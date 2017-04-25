@@ -28,6 +28,7 @@ class VCardObject(object):
         """Return a VCardObject from a VCardFile."""
         for line in vcard_file:
             print line
+        return VCardObject()
 
 
 class VCardFile(object):
@@ -42,8 +43,8 @@ class VCardFile(object):
         # Attempt to read file content
         self._content = None
         try:
-            with open(filepath, 'r') as file:
-                self._content = file.readlines()
+            with open(filepath, 'r') as vcf_file:
+                self._content = vcf_file.readlines()
         except Exception as exception:
             raise exception
 

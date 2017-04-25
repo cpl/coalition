@@ -11,7 +11,3 @@ dist
 
 #VSCode
 .vscode
-
-# Secret
-tests/google.vcf
-tests/apple.vcf
