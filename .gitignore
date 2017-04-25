@@ -8,6 +8,7 @@ dist
 # Mics
 *.log
 *.zip
+.coverage
 
 #VSCode
 .vscode

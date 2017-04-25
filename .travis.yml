@@ -5,7 +5,10 @@ language: python
 python:
   - "2.7"
 install: "pip install -r requirements.txt"
+before_script:
+  - pip install -r tests/requirements.txt
+  - py.test tests/full_tests.py
 script:
-  - python coalition/tests.py
+  - coverage run -m unittest -v tests.full_tests
 after_success:
   - sh make.sh
