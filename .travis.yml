@@ -11,4 +11,5 @@ before_script:
 script:
   - coverage run -m unittest -v tests.full_tests
 after_success:
+  - coveralls
   - sh make.sh
