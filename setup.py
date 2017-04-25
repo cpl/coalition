@@ -17,8 +17,9 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, path.pardir, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
+    long_description = long_description.replace("\r", "")
 
 
 def read(*names, **kwargs):
@@ -46,7 +47,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version=find_version(here, 'coalition.py'),
+    version=find_version(path.join(here, 'coalition', 'coalition.py')),
 
     description='A suite of office tools developed in Python.',
     long_description=long_description,

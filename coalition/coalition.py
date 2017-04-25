@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """The main file of the coalition software package."""
-__version__ = '0.0.0dev2'
+__version__ = '0.0.0dev4'
 
 
 def main():
