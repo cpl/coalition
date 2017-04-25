@@ -7,3 +7,5 @@ python:
 install: "pip install -r requirements.txt"
 script:
   - python coalition/tests.py
+after_success:
+  - sh make.sh
